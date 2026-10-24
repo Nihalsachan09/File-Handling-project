@@ -1,7 +1,7 @@
 from pathlib import Path
 import os 
 
-def readfielandfolder():
+def readfileandfolder():
     path = Path('')
     items = list(path.rglob('*'))
     for i, items in enumerate(items):
@@ -10,7 +10,7 @@ def readfielandfolder():
 
 def createfile():
     try:
-        readfielandfolder()
+        readfileandfolder()
         name = input("please tell your file name :- ")
         p = Path(name)
         if not p.exists():
@@ -21,79 +21,66 @@ def createfile():
             print(F"FILE CREATED SUCCESSFULLY")
         else:
             print("this file already exist")
-        
     except Exception as err:
         print(f"An error occured as {err}")
 
 def readfile():
     try:
-        readfielandfolder()
-        name = input("which file you want to read")
-        p = Path(name)
+        readfileandfolder()
+        name=input("which file you want to read:- ")
+        p=Path(name)
         if p.exists() and p.is_file():
-            with open(p,'r') as fs:
-                data = fs.read()
+            with open(p,'r')as fs:
+                data=fs.read()
                 print(data)
-            
-            print("Readed successfully ")
-        else:
-            print("the file doesnot exist")
-    except Exception as err:
-        print(f"An error occured as {err}")
 
+            print("Readed Successfully")
+        else:
+            print("The file does not exists ")
+    except Exception as err:
+            print(f"An error occured as {err}")
 
 def updatefile():
     try:
-            
-        readfielandfolder()
-        name = input("tell which file you want to update :- ")
-        p = Path(name)
+        readfileandfolder()
+        name=input("which file you want to update:- ")
+        p=Path(name)
         if p.exists() and p.is_file():
             print("press 1 for changing the name of your file :- ")
             print("press 2 for overwriting the data of your file ")
             print("press 3 for appending some content in your file ")
-
+            
             res = int(input("tell your response :- "))
 
-            if res == 1:
-                name2 = input("tell  your new file name :- ")
-                p2 = Path(name2)
-                p.rename(p2)
-            
-            if res == 2:
-                with open(p, 'w') as fs:
-                    data = input("tell what you want to write this is overwrite the data :- ")
+            if res==1:
+                name2=input("Please tell your new file name")
+                p2=Path(name2)
+                if not p2.exists():
+                    p.rename(p2)
+            elif res==2:
+                with open(p,'w')as fs:
+                    data=input("tell what you want to write this is overwrite the data :-")
                     fs.write(data)
-        
-            if res == 3:
-                with open(p, 'a') as fs:
-                    data = input("tell what you want to append :- ")
+            elif res==3:
+                with open(p,'a')as fs:
+                    data=input("tell what you want to append :-")
                     fs.write(" "+data)
-
+            print("Updated successfully")
     except Exception as err:
-        print("an error occured as {err}")
-
+                print(f"An error occured as {err}")
 
 def deletefile():
     try:
-
-        readfielandfolder()
-        name = input("whuich file you want to delete :- ")
-        p = Path(name)
-
+        readfileandfolder()
+        name=input("which file you want to delete? ")
+        p=Path(name)
         if p.exists() and p.is_file():
             os.remove(name)
-        
-            print("file removes suiccessfully ")
-    
+            print("File removed Successfully... ")
         else:
-            print("No such file exist")
-    
+            print("No such file exists")
     except Exception as err:
-        print(f"An error occured as {err}")
-
-    
-
+                print(f"An error occured as {err}")
 
 print("press 1 for creating a file")
 print("press 2 for reading a file")
